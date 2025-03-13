@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片压缩工具</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id="upload-area">
+    <input type="file" id="image-input" accept="image/*">
+    <p>将图片拖放到此处或点击选择文件</p>
+  </div>
+  <div id="compression-settings">
+    <label for="quality">压缩质量:</label>
+    <input type="range" id="quality" min="1" max="100" value="80">
+    <span id="quality-value">80%</span>
+  </div>
+  <div id="preview-area">
+    <img id="preview-image" src="" alt="预览图片">
+  </div>
+  <script src="script.js"></script>
+  <button id="confirm-button">确认</button>
+  <button id="save-button">保存到本地</button>
+</body>
+
+</html>
