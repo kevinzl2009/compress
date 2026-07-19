@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>极速跑车 · 超级赛车 🏎️</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- 游戏画布 -->
+  <canvas id="game"></canvas>
+
+  <!-- 顶部信息栏（比赛中显示） -->
+  <div id="hud" class="hidden">
+    <div class="hud-box">
+      <div class="hud-label">圈数</div>
+      <div class="hud-value"><span id="hud-lap">1</span>/3</div>
+    </div>
+    <div class="hud-box">
+      <div class="hud-label">名次</div>
+      <div class="hud-value"><span id="hud-pos">1</span>/4</div>
+    </div>
+    <div class="hud-box">
+      <div class="hud-label">用时</div>
+      <div class="hud-value" id="hud-time">0.0</div>
+    </div>
+    <div class="hud-box">
+      <div class="hud-label">最快圈</div>
+      <div class="hud-value" id="hud-best">--</div>
+    </div>
+    <div class="hud-box speed-box">
+      <div class="hud-value big" id="hud-speed">0</div>
+      <div class="hud-label">km/h</div>
+    </div>
+  </div>
+
+  <!-- 迷你地图 -->
+  <canvas id="minimap" class="hidden"></canvas>
+
+  <!-- 倒计时 -->
+  <div id="countdown" class="hidden"></div>
+
+  <!-- 触摸/鼠标操作按钮 -->
+  <div id="touch-controls" class="hidden">
+    <div class="pad-left">
+      <button class="ctrl-btn" data-key="left">◀</button>
+      <button class="ctrl-btn" data-key="right">▶</button>
+    </div>
+    <div class="pad-right">
+      <button class="ctrl-btn brake" data-key="brake">刹车</button>
+      <button class="ctrl-btn gas" data-key="gas">油门</button>
+    </div>
+  </div>
+
+  <!-- 界面菜单层 -->
+  <div id="overlay"></div>
+
+  <script src="game.js"></script>
+</body>
+
+</html>

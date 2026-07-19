@@ -1,0 +1,287 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0f1a;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color: #fff;
+  user-select: none;
+}
+
+#game {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+#hud {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.hud-box {
+  background: rgba(10, 16, 30, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 8px 14px;
+  min-width: 74px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.hud-label {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #9fb3d1;
+  text-transform: uppercase;
+}
+
+.hud-value {
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+.hud-value.big { font-size: 32px; line-height: 1; }
+
+.speed-box {
+  background: linear-gradient(160deg, rgba(255, 60, 90, 0.28), rgba(10, 16, 30, 0.72));
+  border-color: rgba(255, 90, 120, 0.5);
+}
+
+/* ---------- 迷你地图 ---------- */
+#minimap {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 180px;
+  height: 130px;
+  background: rgba(10, 16, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  z-index: 20;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- 倒计时 ---------- */
+#countdown {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22vw;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(255, 210, 80, 0.9), 0 8px 30px rgba(0, 0, 0, 0.6);
+  z-index: 30;
+  pointer-events: none;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.2); opacity: 0; }
+  30% { transform: scale(1.15); opacity: 1; }
+  70% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.count-anim { animation: pop 1s ease-out forwards; }
+
+/* ---------- 触摸控制 ---------- */
+#touch-controls {
+  position: fixed;
+  inset: auto 0 0 0;
+  bottom: 0;
+  z-index: 25;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 22px;
+  pointer-events: none;
+}
+
+.pad-left, .pad-right {
+  display: flex;
+  gap: 16px;
+  pointer-events: auto;
+}
+
+.ctrl-btn {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: none;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(30, 40, 66, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  touch-action: none;
+}
+.ctrl-btn:active { transform: scale(0.92); filter: brightness(1.3); }
+.ctrl-btn.gas { background: rgba(60, 200, 110, 0.75); font-size: 18px; }
+.ctrl-btn.brake { background: rgba(230, 80, 90, 0.75); font-size: 18px; }
+
+/* ---------- 菜单 / 界面 ---------- */
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+}
+#overlay.hidden { display: none; }
+
+.panel {
+  width: min(920px, 96vw);
+  background: rgba(12, 18, 34, 0.86);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 26px;
+  padding: 28px 30px 34px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  text-align: center;
+}
+
+.game-title {
+  font-size: clamp(34px, 7vw, 66px);
+  font-weight: 900;
+  margin: 6px 0 2px;
+  background: linear-gradient(92deg, #ffd166, #ff5d73, #6ae0ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: #9fb3d1;
+  margin: 0 0 22px;
+  font-size: 15px;
+}
+
+.section-heading {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 4px 0 18px;
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  color: #0b0f1a;
+  background: linear-gradient(160deg, #ffd166, #ff9f45);
+  padding: 15px 34px;
+  border-radius: 16px;
+  font-size: 19px;
+  box-shadow: 0 10px 26px rgba(255, 160, 60, 0.4);
+  transition: transform 0.12s ease, filter 0.12s ease;
+  margin: 6px;
+}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.btn:active { transform: translateY(1px); }
+.btn.secondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+.btn.blue {
+  background: linear-gradient(160deg, #6ae0ff, #4a7bff);
+  color: #041022;
+  box-shadow: 0 10px 26px rgba(80, 150, 255, 0.4);
+}
+
+/* 卡片网格（选车 / 选赛道） */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.card {
+  position: relative;
+  border-radius: 18px;
+  padding: 14px;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
+  text-align: center;
+}
+.card:hover { transform: translateY(-4px); }
+.card.selected {
+  border-color: #ffd166;
+  box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.35), 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+.card canvas { width: 100%; height: 88px; display: block; }
+.card-name { font-weight: 800; margin-top: 8px; font-size: 16px; }
+.card-tag { font-size: 12px; color: #9fb3d1; margin-top: 2px; min-height: 15px; }
+
+.stats { margin-top: 10px; text-align: left; font-size: 12px; }
+.stat-row { display: flex; align-items: center; gap: 6px; margin: 4px 0; }
+.stat-row span { width: 44px; color: #9fb3d1; }
+.bar { flex: 1; height: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
+.bar > i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #6ae0ff, #ffd166); }
+
+.result-time {
+  font-size: clamp(40px, 9vw, 72px);
+  font-weight: 900;
+  margin: 8px 0;
+  color: #ffd166;
+}
+.result-line { font-size: 17px; color: #cfe0f5; margin: 4px 0; }
+.trophy { font-size: 60px; margin: 4px; }
+
+.hint {
+  margin-top: 14px;
+  color: #7f93b3;
+  font-size: 13px;
+  line-height: 1.6;
+}
+kbd {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-family: inherit;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mute-btn {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 22;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 16, 30, 0.7);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
