@@ -1,0 +1,42 @@
+name: Deploy Racing Game to GitHub Pages
+
+# 每次推送到 master 时，自动把 racing-game/ 目录部署为网站根目录
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只保留一次部署
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          # 若仓库尚未开启 Pages，则自动开启（source = GitHub Actions）
+          enablement: true
+
+      - name: Upload racing-game as site root
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: racing-game
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
