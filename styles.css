@@ -1,29 +1,147 @@
+:root {
+  --bg: #f4f6f8;
+  --card: #ffffff;
+  --text: #1c2430;
+  --muted: #637083;
+  --line: #dde3ea;
+  --accent: #1f6feb;
+  --accent-soft: #e8f0fe;
+  --good: #1a7f37;
+  --good-bg: #e6f4ea;
+  --bad: #9a6700;
+  --bad-bg: #fff4d6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12161c;
+    --card: #1b2129;
+    --text: #e6ebf1;
+    --muted: #94a0b0;
+    --line: #2c3540;
+    --accent: #4c8dff;
+    --accent-soft: #1c2b44;
+    --good: #5cc97a;
+    --good-bg: #183424;
+    --bad: #e3b341;
+    --bad-bg: #3a2f12;
+  }
+}
+
+* { box-sizing: border-box; }
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f8ff; /* 浅蓝色背景 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
 }
 
-#upload-area {
-  border: 2px dashed #ccc;
-  padding: 20px;
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 16px 24px;
+}
+
+h1 { margin: 0; font-size: 26px; }
+.sub { margin: 4px 0 24px; color: var(--muted); font-size: 14px; }
+
+#drop-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 36px 16px;
+  border: 2px dashed var(--line);
+  border-radius: 14px;
+  background: var(--card);
   text-align: center;
-  margin-bottom: 20px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+#drop-zone:hover, #drop-zone.over { border-color: var(--accent); background: var(--accent-soft); }
+#drop-zone input { display: none; }
+.drop-icon { font-size: 28px; color: var(--accent); }
+.hint { color: var(--muted); font-size: 13px; }
+
+.settings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+@media (max-width: 600px) { .settings { grid-template-columns: 1fr; } }
+
+.field {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.field label { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.field output { color: var(--text); font-weight: 600; }
+.field input[type=range] { width: 100%; accent-color: var(--accent); }
+.field select {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
 }
 
-#compression-settings {
-  margin-bottom: 20px;
+#summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  font-weight: 600;
 }
+#summary[hidden] { display: none; }
+.summary-actions { display: flex; gap: 8px; }
 
-#preview-area {
-  text-align: center;
+button {
+  font: inherit;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
 }
+button.primary { background: var(--accent); color: #fff; }
+button.primary:hover { filter: brightness(1.08); }
+button.ghost { background: transparent; border-color: var(--line); color: var(--text); }
+button.small { padding: 6px 12px; font-size: 14px; }
 
-#preview-image {
-  max-width: 100%;
-  max-height: 300px;
+#results { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
 }
+.item img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+.info { flex: 1; min-width: 0; }
+.name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--muted); font-size: 13px; }
+.meta.error { color: #d1242f; }
+.badge { font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; }
+.badge.good { color: var(--good); background: var(--good-bg); }
+.badge.bad { color: var(--bad); background: var(--bad-bg); }
+
+footer { text-align: center; padding: 16px; font-size: 14px; }
+footer a { color: var(--muted); }

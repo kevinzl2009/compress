@@ -1,29 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>图片压缩工具</title>
+  <meta name="description" content="在浏览器里压缩图片，图片不会上传到任何服务器。">
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <div id="upload-area">
-    <input type="file" id="image-input" accept="image/*">
-    <p>将图片拖放到此处或点击选择文件</p>
-  </div>
-  <div id="compression-settings">
-    <label for="quality">压缩质量:</label>
-    <input type="range" id="quality" min="1" max="100" value="80">
-    <span id="quality-value">80%</span>
-  </div>
-  <div id="preview-area">
-    <img id="preview-image" src="#" alt="预览图片">
-  </div>
-  <script src="script.js"></script>
-  <button id="confirm-button">确认</button>
-  <button id="save-button">保存到本地</button>
-</body>
+  <main class="wrap">
+    <header>
+      <h1>图片压缩工具</h1>
+      <p class="sub">图片只在你的浏览器里处理，不会上传到任何服务器。</p>
+    </header>
 
+    <label id="drop-zone" for="image-input">
+      <input type="file" id="image-input" accept="image/*" multiple>
+      <span class="drop-icon" aria-hidden="true">⬆</span>
+      <strong>拖放图片到这里，或点击选择</strong>
+      <span class="hint">支持 JPG / PNG / WebP，可一次选多张</span>
+    </label>
+
+    <section class="settings">
+      <div class="field">
+        <label for="quality">压缩质量 <output id="quality-value">80%</output></label>
+        <input type="range" id="quality" min="10" max="100" value="80">
+      </div>
+      <div class="field">
+        <label for="format">输出格式</label>
+        <select id="format">
+          <option value="image/jpeg">JPG（体积小，通用）</option>
+          <option value="image/webp">WebP（体积最小）</option>
+          <option value="keep">保持原格式</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="max-width">最大宽度</label>
+        <select id="max-width">
+          <option value="0">不缩小</option>
+          <option value="3840">3840 px（4K）</option>
+          <option value="1920" selected>1920 px（全高清）</option>
+          <option value="1280">1280 px</option>
+          <option value="800">800 px</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="summary" hidden>
+      <span id="summary-text"></span>
+      <div class="summary-actions">
+        <button id="download-all" class="primary">全部下载</button>
+        <button id="clear-all" class="ghost">清空</button>
+      </div>
+    </section>
+
+    <ul id="results"></ul>
+  </main>
+
+  <footer>
+    <a href="racing-game/">🏎️ 顺便玩一下赛车游戏</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
