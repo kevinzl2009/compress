@@ -15,10 +15,9 @@
 
 ## 网站结构
 
-推送到 `master` 后，GitHub Actions（`.github/workflows/deploy-pages.yml`）自动发布：
+推送到 `master` 后，GitHub Actions（`.github/workflows/deploy-pages.yml`）自动把 `index.html`、`script.js`、`styles.css` 发布到 https://kevinzl2009.github.io/compress/
 
-- `/compress/` → 图片压缩工具（`index.html`、`script.js`、`styles.css`）
-- `/compress/racing-game/` → 赛车游戏（`racing-game/`）
+赛车游戏已移到独立仓库 [racing-game](https://github.com/kevinzl2009/racing-game)，在线地址：https://kevinzl2009.github.io/racing-game/
 
 ## 技术栈
 
